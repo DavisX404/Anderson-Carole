@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123d2f">
+  <meta name="description" content="Découvrez l'invitation à la dot de Carole et Anderson.">
+  <title>Invitation à la dot — Carole &amp; Anderson</title>
+  <link rel="icon" href="./ICON.png">
+
+  <!-- FICHIER CSS : couleurs, mise en page, tailles et animations -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="intro-active">
+
+  <!-- ==========================================================
+       1. PAGE D'ACCUEIL : ENVELOPPE À CLIQUER
+       Tu peux modifier le texte « Cliquez sur l'enveloppe » ici.
+       L'enveloppe est dessinée en CSS : aucune image nécessaire.
+       ========================================================== -->
+  <section class="envelope-screen" id="envelopeScreen" aria-labelledby="envelopeTitle">
+    <div class="envelope-screen__content">
+      <p class="eyebrow">Une annonce pleine d'amour</p>
+      <h1 id="envelopeTitle">Vous êtes invité(e)</h1>
+      <p class="envelope-screen__intro">Une belle histoire mérite une belle invitation.</p>
+
+      <button class="envelope-button" id="openInvitation" type="button"
+              aria-label="Ouvrir l'enveloppe et découvrir l'invitation">
+        <span class="envelope-art" id="envelopeArt" aria-hidden="true">
+          <span class="envelope-art__back"></span>
+          <span class="envelope-art__letter">
+            <span class="envelope-art__letter-small">AVEC JOIE, NOUS VOUS INVITONS</span>
+            <span class="envelope-art__letter-names" data-couple-names>Carole &amp; Anderson</span>
+          </span>
+          <span class="envelope-art__flap"></span>
+          <span class="envelope-art__front"></span>
+          <span class="envelope-art__seal">♥</span>
+        </span>
+        <span class="envelope-button__instruction">Cliquez sur l'enveloppe</span>
+      </button>
+
+      <p class="envelope-screen__hint">Une invitation numérique à ouvrir avec le cœur.</p>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       2. INVITATION PRINCIPALE
+       Cette partie est cachée jusqu'au clic sur l'enveloppe.
+       ========================================================== -->
+  <main id="invitation" class="invitation is-hidden">
+
+    <!-- HERO : grande photo et prénoms du couple -->
+    <section class="hero" id="top">
+      <!--
+        PHOTO PRINCIPALE : remplace simplement la valeur de src par :
+        - une URL d'image en ligne, OU
+        - un chemin local, par exemple images/couple-principal.jpg
+        Si tu choisis un chemin local, crée le dossier « images ».
+      -->
+      <img
+        class="hero__photo"
+        src="./alliance%20mariage.jpg"
+        alt="Photographie romantique d'un couple"
+        fetchpriority="high"
+      >
+      <div class="hero__shade"></div>
+
+      <header class="site-header">
+        <!-- Les initiales sont générées automatiquement dans script.js. -->
+        <a class="monogram" href="#top" aria-label="Retour en haut de l'invitation">
+          <span data-initials>JS</span>
+        </a>
+        <span class="site-header__label">NOTRE DOT</span>
+        <button class="music-button" id="musicButton" type="button" aria-pressed="false">
+          <span class="music-button__icon" aria-hidden="true">♫</span>
+          <span id="musicButtonLabel">Écouter la musique</span>
+        </button>
+      </header>
+
+      <div class="hero__content">
+        <p class="eyebrow eyebrow--light">Deux cœurs, une promesse</p>
+        <p class="hero__pretitle">Le début d'une nouvelle aventure</p>
+        <h1 class="hero__names" data-couple-names>Anderson &amp; Carole</h1>
+        <div class="gold-divider" aria-hidden="true"><span>♥</span></div>
+        <p class="hero__date" id="heroDate">Samedi 14 novembre 2026</p>
+        <a class="scroll-cue" href="#countdown" aria-label="Défiler vers l'invitation">
+          <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Le fichier audio doit s'appeler musique.mp3 et être dans ce dossier. -->
+    <audio id="weddingMusic" loop preload="none">
+      <source src="musique.mp3" type="audio/mpeg">
+      Votre navigateur ne prend pas en charge la lecture audio.
+    </audio>
+    <p class="music-status" id="musicStatus" role="status" aria-live="polite"></p>
+
+    <!-- COMPTE À REBOURS -->
+    <section class="section countdown-section" id="countdown">
+      <p class="eyebrow">Le jour de la dot approche</p>
+      <h2>Le compte à rebours</h2>
+      <p class="section__intro">Nous avons hâte de partager ce moment avec vous.</p>
+      <div class="countdown" aria-label="Compte à rebours avant la dot">
+        <div class="countdown__item"><span id="days">000</span><small>Jours</small></div>
+        <div class="countdown__item"><span id="hours">00</span><small>Heures</small></div>
+        <div class="countdown__item"><span id="minutes">00</span><small>Minutes</small></div>
+        <div class="countdown__item"><span id="seconds">00</span><small>Secondes</small></div>
+      </div>
+      <p class="countdown__message" id="countdownMessage" aria-live="polite"></p>
+    </section>
+
+    <!-- TEXTE D'INVITATION -->
+    <section class="invitation-quote">
+      <span class="quote-mark" aria-hidden="true">“</span>
+      <!-- Modifie librement le texte d'invitation ci-dessous. -->
+      <p class="invitation-quote__text">
+        Deux familles, deux histoires, un même destin…<br>
+        Deux cœurs qui choisissent de marcher ensemble.
+      </p>
+      <p class="invitation-quote__subtext">
+        Nous serions honorés de vous avoir à nos côtés pour célébrer notre mariage traditionnel.
+      </p>
+      <div class="gold-divider" aria-hidden="true"><span>♥</span></div>
+    </section>
+
+    <!-- PHOTO SECONDAIRE ET MESSAGE PERSONNEL -->
+    <section class="couple-section section">
+      <div class="couple-section__photo-block">
+        <button class="couple-section__photo-wrap" id="couplePhoto" type="button"
+                aria-label="Animer l’illustration de Carole et Anderson"
+                aria-pressed="false">
+          <img
+            class="couple-section__photo"
+            src="./image(1).jpg"
+            alt=""
+            loading="lazy"
+          >
+        </button>
+        <span class="couple-section__photo-caption">Un amour, une promesse, une vie.</span>
+      </div>
+      <div class="couple-section__text">
+        <p class="eyebrow">Avec amour et gratitude</p>
+        <h2>Une journée, mille souvenirs</h2>
+        <p>
+          Notre bonheur sera encore plus grand si vous êtes présents pour partager
+          les sourires, les bénédictions et les souvenirs de cette journée unique.
+        </p>
+        <p class="signature" data-couple-names>Carole &amp; Anderson</p>
+      </div>
+    </section>
+
+    <!-- INFORMATIONS PRATIQUES -->
+    <section class="section details-section" id="informations">
+      <p class="eyebrow">Notez la date</p>
+      <h2>Les détails de la dot</h2>
+      <p class="section__intro">Voici les informations utiles pour nous retrouver.</p>
+
+      <div class="details-grid">
+        <article class="detail-card">
+          <span class="detail-card__icon" aria-hidden="true">✦</span>
+          <p class="detail-card__label">DATE</p>
+          <!-- La date est automatiquement mise à jour depuis script.js. -->
+          <h3 id="weddingDateLabel">Samedi 14 novembre 2026</h3>
+          <p>Gardez cette journée pour célébrer avec nous.</p>
+        </article>
+
+        <article class="detail-card">
+          <span class="detail-card__icon" aria-hidden="true">♧</span>
+          <p class="detail-card__label">MARIAGE TRADITIONNEL</p>
+          <h3>09 h 00</h3>
+          <p>La Palmeraie<br><strong>Abidjan</strong></p>
+        </article>
+
+        <article class="detail-card">
+          <span class="detail-card__icon" aria-hidden="true">♬</span>
+          <p class="detail-card__label">RÉCEPTION</p>
+          <h3>12 h 30</h3>
+          <p>La Palmeraie<br><strong>Abidjan</strong></p>
+        </article>
+      </div>
+
+      <div class="location-banner">
+        <div class="location-banner__drums" aria-hidden="true">🥁 🥁 🥁</div>
+        <div class="location-banner__copy">
+          <h3>On se retrouve à la Palmeraie !</h3>
+          <p>Préparez vos sourires et votre énergie pour la fête.</p>
+        </div>
+        <a class="button button--gold" id="locationLink" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">
+          <span aria-hidden="true">⌖</span> Localisation
+        </a>
+      </div>
+
+    </section>
+
+    <!-- CONFIRMATION RSVP -->
+    <section class="rsvp-section section" id="confirmation">
+      <p class="eyebrow eyebrow--light">Votre présence compte</p>
+      <h2>Allez Vous Nous Honorez De Vous Presence ?</h2>
+      <p>Merci de nous confirmer votre présence afin que nous puissions préparer au mieux cette journée.</p>
+      <!-- script.js remplace le lien par un message WhatsApp prérempli. -->
+      <a class="button button--light" id="confirmButton" href="#confirmation">
+        Confirmer ma présence <span aria-hidden="true">↗</span>
+      </a>
+      <p class="rsvp-section__note">WhatsApp s’ouvrira avec un message prérempli ; il ne restera qu’à l’envoyer.</p>
+    </section>
+
+    <!-- DERNIÈRE PHOTO ET REMERCIEMENTS -->
+    <section class="thank-you-section">
+      <!-- PHOTO 3 : change l'image ici si tu veux une dernière photo. -->
+      <img
+        class="thank-you-section__photo"
+        src="./image(2).jpg"
+        alt="Un moment romantique à deux"
+        loading="lazy"
+      >
+      <div class="thank-you-section__overlay"></div>
+      <div class="thank-you-section__content">
+        <p class="eyebrow eyebrow--light">Merci du fond du cœur</p>
+        <h2>Votre présence sera notre plus beau cadeau.</h2>
+        <p>Avec toute notre affection,</p>
+        <p class="signature signature--light" data-couple-names>Carole &amp; Anderson</p>
+        <a class="back-to-top" href="#top">↑ Retour en haut</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p>Créé avec amour pour <span data-couple-names>Carole &amp; Anderson</span>.</p>
+    </footer>
+  </main>
+
+  <!-- FICHIER JAVASCRIPT : clics, compte à rebours, musique, liens -->
+  <script src="script.js"></script>
+</body>
+</html>
