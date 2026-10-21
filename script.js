@@ -5,7 +5,7 @@
    1) les prénoms ;
    2) la date et l'heure de la dot ;
    3) l'adresse à ouvrir dans Google Maps ;
-   4) le numéro WhatsApp pour les confirmations.
+   4) les identifiants du formulaire Google pour les confirmations.
    ============================================================= */
 
 // ----- 1. INFORMATIONS À PERSONNALISER -----
@@ -19,11 +19,6 @@ const WEDDING_DATE = "2026-11-14T09:00:00";
 
 // Mets ici l'adresse exacte ou le nom du lieu à rechercher dans Google Maps.
 const LOCATION_QUERY = "5.36430279461449,-3.9734620250162354";
-
-// Numéro WhatsApp avec indicatif du pays, sans +, espace ni tiret.
-// Exemple ivoirien : 225 suivi du numéro de téléphone.
-// IMPORTANT : remplace ce numéro d'exemple avant de publier le site.
-const WHATSAPP_NUMBER = "22508811471";
 
 // ----- 2. RÉCUPÉRER LES ÉLÉMENTS HTML -----
 const envelopeScreen = document.getElementById("envelopeScreen");
@@ -184,10 +179,76 @@ const mapsUrl = new URL("https://www.google.com/maps/search/");
 mapsUrl.search = new URLSearchParams({ api: "1", query: LOCATION_QUERY }).toString();
 locationLink.href = mapsUrl.toString();
 
-// ----- 9. CONFIRMATION PAR WHATSAPP -----
-const confirmButton = document.getElementById("confirmButton");
-const whatsappMessage =
-  `Bonjour, je vous confirme ma présence à la dot de ${coupleNames}. Merci pour l'invitation !`;
-confirmButton.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+// ----- 9. CONFIRMATION RSVP PAR GOOGLE FORMS -----
+const rsvpForm = document.getElementById("rsvpForm");
+const rsvpResponseFrame = document.getElementById("rsvpResponseFrame");
+const rsvpSubmit = document.getElementById("rsvpSubmit");
+const rsvpSubmitLabel = document.getElementById("rsvpSubmitLabel");
+const rsvpStatus = document.getElementById("rsvpStatus");
+const rsvpSuccess = document.getElementById("rsvpSuccess");
+const rsvpAddPerson = document.getElementById("rsvpAddPerson");
+
+let responseFrameReady = rsvpResponseFrame.contentDocument?.readyState === "complete";
+let rsvpSubmissionPending = false;
+let rsvpResponseTimeout;
+
+function setRsvpLoading(isLoading) {
+  rsvpSubmit.disabled = isLoading;
+  rsvpSubmit.classList.toggle("is-loading", isLoading);
+  rsvpSubmit.setAttribute("aria-busy", String(isLoading));
+  rsvpSubmitLabel.textContent = isLoading ? "Envoi en cours…" : "Confirmer ma présence";
+}
+
+rsvpResponseFrame.addEventListener("load", () => {
+  if (!responseFrameReady) {
+    responseFrameReady = true;
+    return;
+  }
+
+  if (!rsvpSubmissionPending) return;
+
+  rsvpSubmissionPending = false;
+  window.clearTimeout(rsvpResponseTimeout);
+  rsvpForm.reset();
+  setRsvpLoading(false);
+  rsvpForm.hidden = true;
+  rsvpSuccess.hidden = false;
+  rsvpAddPerson.focus();
+});
+
+rsvpForm.addEventListener("input", () => {
+  if (!rsvpSubmissionPending) rsvpStatus.hidden = true;
+});
+
+rsvpForm.addEventListener("submit", (event) => {
+  if (!responseFrameReady) {
+    event.preventDefault();
+    rsvpStatus.textContent = "Le formulaire est en cours de préparation. Réessayez dans un instant.";
+    rsvpStatus.hidden = false;
+    return;
+  }
+
+  rsvpSubmissionPending = true;
+  setRsvpLoading(true);
+  rsvpStatus.textContent = "Envoi de votre confirmation…";
+  rsvpStatus.hidden = false;
+
+  rsvpResponseTimeout = window.setTimeout(() => {
+    if (!rsvpSubmissionPending) return;
+
+    rsvpSubmissionPending = false;
+    setRsvpLoading(false);
+    rsvpStatus.textContent = "L’envoi n’a pas pu être confirmé. Vérifiez votre connexion et réessayez.";
+  }, 15000);
+});
+
+rsvpAddPerson.addEventListener("click", () => {
+  rsvpSuccess.hidden = true;
+  rsvpForm.reset();
+  rsvpStatus.hidden = true;
+  setRsvpLoading(false);
+  rsvpForm.hidden = false;
+  document.getElementById("rsvpName").focus();
+});
 
 // FIN : tout le comportement interactif de l'invitation est défini ci-dessus.

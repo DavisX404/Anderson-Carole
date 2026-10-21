@@ -195,14 +195,91 @@
 
     <!-- CONFIRMATION RSVP -->
     <section class="rsvp-section section" id="confirmation">
-      <p class="eyebrow eyebrow--light">Votre présence compte</p>
-      <h2>Allez Vous Nous Honorez De Vous Presence ?</h2>
-      <p>Merci de nous confirmer votre présence afin que nous puissions préparer au mieux cette journée.</p>
-      <!-- script.js remplace le lien par un message WhatsApp prérempli. -->
-      <a class="button button--light" id="confirmButton" href="#confirmation">
-        Confirmer ma présence <span aria-hidden="true">↗</span>
-      </a>
-      <p class="rsvp-section__note">WhatsApp s’ouvrira avec un message prérempli ; il ne restera qu’à l’envoyer.</p>
+      <div class="rsvp-section__heading">
+        <p class="eyebrow eyebrow--light">Votre présence compte</p>
+        <h2>Nous ferez-vous l’honneur de votre présence&nbsp;?</h2>
+        <p>Quelques instants suffisent pour partager votre réponse et nous aider à préparer cette belle journée.</p>
+      </div>
+      <div class="rsvp-card">
+        <div class="rsvp-card__ornament" aria-hidden="true"><span>✦</span></div>
+        <div class="rsvp-card__content">
+          <p class="rsvp-card__eyebrow">Réponse à l’invitation</p>
+          <h3 class="rsvp-card__title">Nous serons heureux de vous accueillir</h3>
+          <p class="rsvp-card__intro">Indiquez vos coordonnées pour confirmer votre présence. Tous les champs sont requis.</p>
+      <form
+        class="rsvp-form"
+        id="rsvpForm"
+        action="https://docs.google.com/forms/d/e/1FAIpQLSfOaf-CSEgwLJ0LMzlIXQuaVGnRY4kmPEXMiyn27KeYdIKoXQ/formResponse"
+        method="post"
+        target="rsvpResponseFrame"
+        accept-charset="utf-8"
+      >
+        <div class="rsvp-form__field">
+          <label for="rsvpName">Nom et prénom <span aria-hidden="true">*</span></label>
+          <div class="rsvp-form__input-wrap">
+            <svg class="rsvp-form__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="8" r="3.25"></circle>
+              <path d="M5.5 19c.65-3.1 2.9-4.75 6.5-4.75s5.85 1.65 6.5 4.75"></path>
+            </svg>
+            <input
+              id="rsvpName"
+              name="entry.1877524882"
+              type="text"
+              autocomplete="name"
+              placeholder="Ex. Awa Kouassi"
+              required
+            >
+          </div>
+        </div>
+        <div class="rsvp-form__field">
+          <label for="rsvpPhone">Contact / Téléphone <span aria-hidden="true">*</span></label>
+          <div class="rsvp-form__input-wrap">
+            <svg class="rsvp-form__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+              <path d="M7.2 3.75h9.6a1.45 1.45 0 0 1 1.45 1.45v13.6a1.45 1.45 0 0 1-1.45 1.45H7.2a1.45 1.45 0 0 1-1.45-1.45V5.2A1.45 1.45 0 0 1 7.2 3.75Z"></path>
+              <path d="M10 17.4h4"></path>
+            </svg>
+            <input
+              id="rsvpPhone"
+              name="entry.352756090"
+              type="tel"
+              autocomplete="tel"
+              inputmode="tel"
+              placeholder="Ex. +225 07 00 00 00 00"
+              required
+            >
+          </div>
+        </div>
+        <button class="rsvp-form__submit" id="rsvpSubmit" type="submit">
+          <span class="rsvp-form__spinner" aria-hidden="true"></span>
+          <span id="rsvpSubmitLabel">Confirmer ma présence</span>
+          <svg class="rsvp-form__submit-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M13 5l7 7-7 7"></path>
+          </svg>
+        </button>
+        <p class="rsvp-form__status" id="rsvpStatus" role="status" aria-live="polite" hidden></p>
+      </form>
+          <div class="rsvp-success" id="rsvpSuccess" role="status" aria-live="polite" hidden>
+            <span class="rsvp-success__seal" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none">
+                <path d="m8 16.5 5.1 5.1L24.5 10"></path>
+              </svg>
+            </span>
+            <p class="rsvp-success__eyebrow">Confirmation reçue</p>
+            <h3 class="rsvp-success__title">✅ Merci, votre présence a bien été enregistrée.</h3>
+            <p class="rsvp-success__copy">Nous avons hâte de partager cette journée avec vous.</p>
+            <button class="rsvp-success__again" id="rsvpAddPerson" type="button">
+              <span aria-hidden="true">＋</span> Ajouter une autre personne
+            </button>
+          </div>
+        </div>
+      <iframe
+        class="rsvp-response-frame"
+        id="rsvpResponseFrame"
+        name="rsvpResponseFrame"
+        title="Envoi de la confirmation RSVP"
+        aria-hidden="true"
+        tabindex="-1"
+      ></iframe>
     </section>
 
     <!-- DERNIÈRE PHOTO ET REMERCIEMENTS -->
