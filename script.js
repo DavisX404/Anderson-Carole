@@ -186,7 +186,6 @@ const rsvpSubmit = document.getElementById("rsvpSubmit");
 const rsvpSubmitLabel = document.getElementById("rsvpSubmitLabel");
 const rsvpStatus = document.getElementById("rsvpStatus");
 const rsvpSuccess = document.getElementById("rsvpSuccess");
-const rsvpAddPerson = document.getElementById("rsvpAddPerson");
 
 let responseFrameReady = rsvpResponseFrame.contentDocument?.readyState === "complete";
 let rsvpSubmissionPending = false;
@@ -213,7 +212,6 @@ rsvpResponseFrame.addEventListener("load", () => {
   setRsvpLoading(false);
   rsvpForm.hidden = true;
   rsvpSuccess.hidden = false;
-  rsvpAddPerson.focus();
 });
 
 rsvpForm.addEventListener("input", () => {
@@ -240,15 +238,6 @@ rsvpForm.addEventListener("submit", (event) => {
     setRsvpLoading(false);
     rsvpStatus.textContent = "L’envoi n’a pas pu être confirmé. Vérifiez votre connexion et réessayez.";
   }, 15000);
-});
-
-rsvpAddPerson.addEventListener("click", () => {
-  rsvpSuccess.hidden = true;
-  rsvpForm.reset();
-  rsvpStatus.hidden = true;
-  setRsvpLoading(false);
-  rsvpForm.hidden = false;
-  document.getElementById("rsvpName").focus();
 });
 
 // FIN : tout le comportement interactif de l'invitation est défini ci-dessus.
